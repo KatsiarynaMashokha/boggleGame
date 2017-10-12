@@ -15,18 +15,19 @@ import java.util.ArrayList;
 
 public class LettersAdapter extends BaseAdapter {
     private Context mContext;
-    private String[] mVowels;
-    private String[] mConsonants;
+    private ArrayList<String> mGeneratedLetters;
+    private int mCurrentLayout;
 
-    public LettersAdapter(Context mContext, String[] mVowels, String[] mConsonants) {
+    public LettersAdapter(Context mContext, ArrayList<String> mGeneratedLetters, int mCurrentLayout) {
         this.mContext = mContext;
-        this.mVowels = mVowels;
-        this.mConsonants = mConsonants;
+        this.mGeneratedLetters = mGeneratedLetters;
+        this.mCurrentLayout = mCurrentLayout;
+
     }
 
     @Override
     public int getCount() {
-        return 8;
+        return mGeneratedLetters.size();
     }
 
     @Override
@@ -46,44 +47,14 @@ public class LettersAdapter extends BaseAdapter {
 
         View gridView;
 
-        int[] numArray = selectNumbersSumToEight();
-        ArrayList<String> lettersList = selectLetters(numArray[0], numArray[1]);
-
-        if(convertView == null) {
-            gridView = inflater.inflate(R.layout.letter_activity, null);
+        if (convertView == null) {
+            gridView = inflater.inflate(mCurrentLayout, null);
 
             TextView letterTextView = gridView.findViewById(R.id.grid_letter);
-            letterTextView.setText(lettersList.get(position));
+            letterTextView.setText(mGeneratedLetters.get(position));
         } else {
             gridView = convertView;
         }
         return gridView;
-    }
-
-    private ArrayList<String> selectLetters(int k, int m) {
-        int vowelsInt;
-        int consonantsInt;
-        ArrayList<String> letters = new ArrayList<>();
-        for (int i = 0; i < k; i++) {
-            vowelsInt = (int) Math.floor(Math.random() * 5);
-            letters.add(mVowels[vowelsInt]);
-        }
-
-        for (int j = 0; j < m; j++) {
-            consonantsInt = (int) Math.floor(Math.random() * 21);
-            letters.add(mConsonants[consonantsInt]);
-        }
-        return letters;
-    }
-
-    private int[] selectNumbersSumToEight() {
-        int[] returnArray = new int[2];
-        int[] numOne = {2, 3, 4, 5, 6, 7, 8};
-        int[] numTwo = {6, 5, 4, 3, 2, 1, 0};
-
-        int randomNumber = (int) Math.floor(Math.random() * 7);
-        returnArray[0] = numOne[randomNumber];
-        returnArray[1] = numTwo[randomNumber];
-        return returnArray;
     }
 }
