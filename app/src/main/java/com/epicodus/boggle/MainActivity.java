@@ -2,11 +2,13 @@ package com.epicodus.boggle;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.edit_text_user_input) EditText mWordEditText;
     @Bind(R.id.show_list_button) Button mShowListButton;
     @Bind(R.id.grid_view) GridView mGridView;
+    @Bind(R.id.timer_text) TextView mTimerTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mSubmitButton.setOnClickListener(this);
         mShowListButton.setOnClickListener(this);
+
+        CountDownTimer timer = new CountDownTimer(30000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mTimerTextView.setText(getText(R.string.seconds_left).toString() + millisUntilFinished/1000);
+            }
+
+            @Override
+            public void onFinish() {
+                mTimerTextView.setText(getText(R.string.timer_done).toString());
+                mSubmitButton.setEnabled(false);
+            }
+        };
+        timer.start();
     }
 
     @Override

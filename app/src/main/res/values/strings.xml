@@ -4,4 +4,6 @@
     <string name="enter_a_word">Enter a Word</string>
     <string name="submit">Submit</string>
     <string name="show_list">show list</string>
+    <string name="seconds_left">Seconds left: </string>
+    <string name="timer_done">Game Over!</string>
 </resources>

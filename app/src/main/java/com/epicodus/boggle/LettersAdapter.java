@@ -51,7 +51,7 @@ public class LettersAdapter extends BaseAdapter {
             gridView = inflater.inflate(mCurrentLayout, null);
 
             TextView letterTextView = gridView.findViewById(R.id.grid_letter);
-            letterTextView.setText(mGeneratedLetters.get(position));
+            letterTextView.setText(mGeneratedLetters.get(position).toUpperCase());
         } else {
             gridView = convertView;
         }
